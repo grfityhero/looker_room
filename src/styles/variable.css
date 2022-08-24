@@ -1,0 +1,9 @@
+:root {
+    /* --primary: #363739; */
+    --primary: rgb(54, 55, 57);
+    --secondary: rgb(9, 182, 182);
+    --grey: rgb(241, 241, 241);
+    --gray: rgb(230, 230, 230);
+    --black: rgb(0, 0, 0);
+    --light-grey: rgba(0, 0, 0, .125);
+}

@@ -3,7 +3,7 @@ import { Link, } from "react-router-dom";
 import { getDataAction } from "../actions/apiAction";
 import Loading from "../components/Loading";
 import { format, addDays, lastDayOfWeek, addWeeks, subWeeks, subDays, } from "date-fns";
-import { fDateTime3, fDateTime4, HEADER, MODULES } from "../actions/constant";
+import { fDateTime3, fDateTime4, HEADER, LESSONS, MODULES } from "../actions/constant";
 import { isMobile } from 'react-device-detect';
 
 export default function Home() {
@@ -12,6 +12,7 @@ export default function Home() {
     const [data, setData] = useState([])
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const [startDate, setStartDate] = useState(new Date());
+    const [week, setWeek] = useState(0);
 
     const [day, setDay] = useState(0);
 
@@ -100,8 +101,8 @@ export default function Home() {
                         getOneDayData(addDays(startDate, i), moduleId)
                     }}
                 >
-                    <div className="text-right">{weekday(i)}</div>
-                    <div className="text-right date-date">{formattedDate}</div>
+                    <div className="text-right">{weekday(i)}׳</div>
+                    <div className="text-right date-data">{formattedDate}</div>
                 </div>
             </td >
             );
@@ -171,22 +172,24 @@ export default function Home() {
         days = [0, 1, 2, 3, 4, 5, 6]
     }
 
-    return (<>
-        <div className="header">
-            <div className="header-border">
-                <div className="app-title"><Link to="/">Locker Room</Link></div>
+    return (<div className="font-rubik-bold">
+        <div className=" header">
+            <div className="header-border custome-container">
+                <div className="app-title"><Link to="/"><img src="/main-logo.png" alt="lockerrrom" height="100%" width="100%" /></Link></div>
                 <div className="menu-items">
-                    {MODULES.map((e, index) => {
-                        return <span key={index} className={e.id === moduleId ? "active" : ""}
-                            onClick={() => {
-                                setModuleId(e.id)
-                                if (isMobile) {
-                                    getOneDayData(addDays(startDate, day), e.id)
-                                } else {
-                                    getData(startDate, e.id)
-                                }
-                            }}>{e.name}</span>
-                    })}
+                    <div className="menu-mobile">
+                        {MODULES.map((e, index) => {
+                            return <span key={index} className={e.id === moduleId ? "active" : ""}
+                                onClick={() => {
+                                    setModuleId(e.id)
+                                    if (isMobile) {
+                                        getOneDayData(addDays(startDate, day), e.id)
+                                    } else {
+                                        getData(startDate, e.id)
+                                    }
+                                }}>{e.name}</span>
+                        })}
+                    </div>
                 </div>
             </div>
         </div>
@@ -201,8 +204,12 @@ export default function Home() {
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"><path d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z" /></svg>
                         </button>
                         <button
-                            className={`week d-flex align-center cursor-pointer ${loading ? "menu-item_" : ""}`}
-                            onClick={() => changeWeekHandle("next")}
+                            className={`week d-flex align-center  cursor-pointer ${loading ? "next-btn_" : ""}`}
+                            onClick={() => {
+                                setWeek(week + 1)
+                                changeWeekHandle("next")
+                            }
+                            }
                             disabled={loading}>
                             <div className="arrow">
                                 <img src="/arrow.svg" alt="arrow" height="30px" width="150px" />
@@ -210,13 +217,24 @@ export default function Home() {
                             <div className="ml-2">next week</div>
                         </button>
                         {nextweek()}
+                        {week !== 0 && <button
+                            className={`week d-flex align-center previous-btn cursor-pointer pr-0 ${loading ? "menu-item_" : ""}`}
+                            onClick={() => {
+                                setWeek(week - 1)
+                                changeWeekHandle("prev")
+                            }}
+                            disabled={loading}>
+                            <div className="mr-2">previous week</div>
+                            <div className="arrow" style={{ transform: "rotate(180deg)" }} >
+                                <img src="/arrow.svg" alt="arrow" height="30px" width="150px" />
+                            </div>
+                        </button>}
                         <button className="right-arrow"
                             onClick={() => { changeWeekHandle("prev") }}
                             disabled={loading}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"><path d="M7.33 24l-2.83-2.829 9.339-9.175-9.339-9.167 2.83-2.829 12.17 11.996z" /></svg>
                         </button>
                     </div>
-
                 </div>
                 <div>
                     <table>
@@ -227,15 +245,15 @@ export default function Home() {
                                     return <th className={`${fDateTime4(addDays(startDate, index)) === fDateTime4(new Date()) ? "active-col" : ""} data-col`} key={index} width={`14.28%`}>
                                         <div className="p-3 ">
                                             {/* <div className="text-right"></div> */}
-                                            <div className="text-right date-date">{e.title}</div>
+                                            <div className="text-right date-data">{e.title}׳</div>
                                         </div>
                                     </th>
                                 })}
                             </tr>
                         </thead>
                         {loading ? <tbody><tr><td width="100%"><div className="loader"><Loading /></div></td></tr></tbody> : <tbody>
-                            {(data === null || data.length === 0 || error) ? <tr className="w-100 my-4 text-center"><td width="100%"><div className="p-3">{error || "No Data"}</div></td></tr> : count.map((tr, ind) => {
-                                return <tr className="row flex-row-reverse" key={ind}>
+                            {(data === null || data.length === 0 || error) ? <tr className="w-100 my-4 text-center"><td width="100%"><div className="p-3 loader">{error || "No Data"}</div></td></tr> : count.map((tr, ind) => {
+                                return <tr className="row flex-row-reverse table-body" key={ind}>
                                     {days.map((td, i) => {
                                         const d = ((array[fDateTime3(addDays(startDate, isMobile ? day : td))] || [])[tr])
                                         let time = []
@@ -243,66 +261,67 @@ export default function Home() {
                                             time = (d.FormattedDateTime).split(" ")
                                         }
                                         if (!d) {
-                                            return <td className="data-col" key={i}></td>
+                                            return <td className="data-col data-col-mobile" key={i}></td>
                                         }
                                         return <td className="data-col" width="14.28%" key={i}>
                                             <div className="p-3">
                                                 <h4 className="text-right">{time[time.length - 1]}</h4>
-                                                <h5 className="text-right text-secondary mb-1 fw-600">{d.Name}</h5>
-                                                <h4 className="text-right text-uppercase ">{d.EmployeeName}</h4>
+                                                <h5 className="text-right text-secondary  fw-600">{d.Name}</h5>
+                                                <h4 className="text-right text-uppercase mb-0">{d.EmployeeName}</h4>
                                             </div>
                                         </td>
                                     }
                                     )}
                                 </tr>
                             })}
-
-
-                            {/* {(data === null || data.length === 0 || error) ? <div className="w-100 my-4 text-center">{error || "No Data"}</div> : (array.map((r, i) =>
-                                        <td className="data-col p-0 rounded-0" key={i}>
-                                            <tabel className="">
-                                                <tbody>
-                                                    <tr>
-                                                        {r.map((e, index) => {
-                                                            const time = (e.FormattedDateTime).split(" ")
-                                                            return (<td className=" p-0  card  rounded-0" key={index} style={{ width: "100%" }}>
-                                                                <div className="p-3">
-                                                                    <h4 className="text-right">{time[time.length - 1]}</h4>
-                                                                    <h5 className="text-right text-secondary mb-1 fw-600">{e.EmployeeName}</h5>
-                                                                    <h4 className="text-right text-uppercase ">{e.Name}</h4>
-                                                                </div>
-                                                            </td>)
-                                                        })}
-                                                    </tr>
-                                                </tbody>
-                                            </tabel>
-                                        </td>
-                                    ))}
-                                </tr> */}
                         </tbody>}
                     </table>
                     <div className=" mb-1 mt-1 next-before">
-                        <button className="next-week "
-                            onClick={() => { changeWeekHandle("next") }} disabled={loading}>
-                            <div className="arrow"><img src="/arrow.svg" alt="arrow" height="20px" width="180px" /></div>
-                            <div className="ml-2">next week</div>
-                        </button>
-                        <button className="before-week"
+                        {week !== 0 && <button className="before-week"
                             onClick={() => {
+                                setWeek(week - 1)
                                 changeWeekHandle("prev")
                             }}
                             disabled={loading}>
-                            <div className="">
+                            <div className="week-text">
                                 a week before
                             </div>
                             <div className="arrow-right ml-3">
                                 <img src="/arrow.svg" style={{ transform: "rotate(180deg)" }} alt="arrow" height="20px" width="180px" />
                             </div>
+                        </button>}
+                        <button className="next-week "
+                            onClick={() => {
+                                setWeek(week + 1)
+                                changeWeekHandle("next")
+                            }} disabled={loading}>
+                            <div className="arrow">
+                                <img src="/arrow.svg" alt="arrow" height="20px" width="180px" />
+                            </div>
+                            <div className="ml-2 week-text">
+                                next week
+                            </div>
                         </button>
+
                     </div>
                 </div>
             </div>
-        </div >
-    </>
+
+        </div>
+        <div className="footer">
+            <h5>TAP TO LEARNING ON THE LESSONS</h5>
+            <div className="footer-items">
+                {LESSONS.map((e, index) => {
+                    return <div className={`${LESSONS.length > index + 1 ? "footer-item" : "active footer-item"}`} key={index}><a href={e.link} target="_blank" rel="noreferrer"><h4 >{e.name}</h4></a>
+                        {LESSONS.length > index + 1 && <span>|</span>}
+
+                    </div>
+
+                })}
+
+            </div>
+        </div>
+
+    </div >
     )
 }

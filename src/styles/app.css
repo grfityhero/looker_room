@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'Rubik';
+  src: local('Rubik'), url(../assets/._Rubik-Bold.ttf) format('woff');
+  /* other formats include: 'woff2', 'truetype, 'opentype',
+                            'embedded-opentype', and 'svg' */
+}
+
 ::-webkit-scrollbar {
   display: none;
 }
@@ -78,21 +85,27 @@ body {
 
 h4 {
   color: rgb(0, 0, 0);
-  font-size: 15px;
-  margin-bottom: 5px;
+  font-size: 13px;
+  margin-bottom: 13px;
+  line-height: 13px;
   font-family: 'Rubik', sans-serif;
 }
 
 h5 {
-  font-size: 15px;
+  font-size: 13px;
   color: var(--black);
-  margin-bottom: 5px;
+  margin-bottom: 13px;
+  line-height: 13px;
   font-weight: 600;
   text-transform: uppercase;
 }
 
 a {
   color: var(--primary);
+}
+
+a:hover {
+  text-decoration: none;
 }
 
 input,
@@ -268,18 +281,52 @@ select:active {
   justify-content: flex-end;
 }
 
+.week-header .data-col {
+  /* width: 174px; */
+  width: 14.28%;
+  min-height: 56px;
+  border-left: 1px solid var(--black);
+  border-bottom: 1px solid var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.table-body .data-col {
+  /* width: 174px; */
+  width: 14.28%;
+  min-height: 90px;
+  border-left: 1px solid var(--black);
+  border-bottom: 1px solid var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
 table {
   width: 100%;
 }
 
 .desktop-header .data-col {
-  color: #09b6b6;
+  color: var(--secondary);
   font-size: 20px;
   font-weight: 700;
 }
 
+.desktop-header .data-col .date-data {
+  line-height: 19px;
+  font-size: 19px;
+}
+
+
+.desktop-header .data-col:nth-child(1) .date-data {
+  font-weight: 900 !important;
+}
+
 .desktop-header .data-col .p-3 {
   width: 100%;
+  height: 56px;
+  min-height: auto;
 }
 
 .data-col .p-3 {
@@ -304,7 +351,7 @@ table {
   width: 14.28%;
   font-size: 20px;
   font-weight: 700;
-  color: #09b6b6;
+  color: var(--secondary);
 }
 
 .small-card:nth-child(7) {
@@ -315,8 +362,6 @@ table {
   width: 85vw;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 42px;
-  padding-right: 42px;
 
 }
 
@@ -366,7 +411,7 @@ table {
 }
 
 .active-col {
-  background-color: #09b6b6 !important;
+  background-color: var(--secondary) !important;
   color: #fff !important;
 }
 
@@ -382,6 +427,7 @@ table {
   border-bottom: 1px solid var(--black);
 }
 
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -394,6 +440,67 @@ table {
   z-index: 2;
 }
 
+.footer {
+  padding: 42px 0;
+  background: var(--gray);
+  margin-bottom: 20px;
+  width: 85vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.footer .footer-items {
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+  border-bottom: 1px solid var(--black);
+  border-top: 1px solid var(--black);
+  line-height: 13px;
+  padding: 18px 0;
+  font-size: 15px;
+  color: var(--black);
+  font-family: 'Rubik', sans-serif;
+}
+
+.footer .footer-items .active h4 {
+  color: var(--secondary);
+  font-weight: 600;
+}
+
+.footer-items div {
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+  /* padding-left: 6px;
+  padding-right: 0px; */
+}
+
+
+.footer-items .footer-item:first-child h4 {
+  padding-left: 0;
+}
+
+.footer-items .footer-item:last-child h4 {
+  padding-right: 0;
+}
+
+.footer h4 {
+  margin-bottom: 0;
+  padding-left: 6.6px;
+  padding-right: 6.6px;
+}
+
+.footer h5 {
+  font-size: 20px;
+  color: var(--secondary);
+  margin-bottom: 13px;
+  line-height: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-align: right;
+}
+
 .menu-item_ {
   /* opacity: 0.6; */
   fill: var(--light-grey);
@@ -402,7 +509,18 @@ table {
 }
 
 .menu-item_:hover {
-  border-color: transparent !important;
+  cursor: not-allowed;
+  border-left: 1px solid var(--black);
+}
+
+.next-btn_ {
+  /* opacity: 0.6; */
+  fill: var(--light-grey);
+  color: var(--light-grey);
+
+}
+
+.next-btn_:hover {
   cursor: not-allowed;
 }
 
@@ -441,9 +559,8 @@ table {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
   border-bottom: 1px solid var(--black);
-  height: 56px;
+  min-height: 56px;
 }
 
 .card {
@@ -477,13 +594,14 @@ table {
   text-decoration: none;
   text-align: center;
   text-transform: uppercase;
-  letter-spacing: 3px;
+  height: 18px;
 }
 
 .menu-items {
   display: flex;
-  width: 652px;
+  width: 624px;
   gap: 8px;
+  justify-content: flex-end;
 }
 
 .menu-items span {
@@ -494,10 +612,12 @@ table {
   font-weight: bold;
   font-family: 'Rubik', sans-serif;
   cursor: pointer;
+  line-height: 13px;
+  font-size: 13px;
 }
 
 .menu-items .active {
-  color: #09b6b6 !important;
+  color: var(--secondary) !important;
 }
 
 .border-bottom {
@@ -510,13 +630,19 @@ table {
 
 .date {
   padding: 8px;
-  font-size: 24px;
+  font-size: 19px;
   color: var(--secondary);
   letter-spacing: 2px;
+  line-height: 19px;
+  font-weight: bold;
 }
 
 .top-date {
   border-left: 1px solid var(--black);
+}
+
+.previous-btn {
+  border-left: 1px solid var(--black) !important;
 }
 
 .week {
@@ -750,7 +876,7 @@ table {
 }
 
 .loader {
-  height: 60vh;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -760,9 +886,29 @@ table {
   display: none !important;
 }
 
-@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+@media only screen and (min-device-width: 320px) and (max-device-width: 900px) {
+  .footer {
+    display: none;
+  }
+
+  .table-body h4 {
+    font-size: 18px;
+  }
+
+  .table-body h5 {
+    font-size: 18px;
+  }
+
   .desktop-header {
     display: none;
+  }
+
+  .menu-mobile {
+    display: grid;
+  }
+
+  .header-data-col .date-data {
+    color: var(--black);
   }
 
   .mobile-header {
@@ -796,6 +942,15 @@ table {
 
   .top-date {
     border-left: none;
+    border-right: none;
+  }
+
+  .data-col-mobile {
+    display: none !important;
+  }
+
+  .table-body .data-col {
+    border-left: none;
   }
 
   .data-col {
@@ -804,10 +959,7 @@ table {
 
   .small-card:nth-child(1) {
     border-left: 1px solid var(--black);
-  }
-
-  .small-card:nth-child(7) {
-    border-right: 1px solid var(--black) !important;
+    border-right: 1px solid var(--black);
   }
 
   .custome-container {
@@ -819,7 +971,7 @@ table {
 
   .next-week {
     display: flex;
-    text-align: center;
+    text-align: right;
     justify-content: space-between;
     align-items: center;
     font-size: 16px;
@@ -827,6 +979,8 @@ table {
     background-color: var(--gray);
     border: none;
     width: 100%;
+    margin-bottom: 40px;
+    margin-top: 25px;
   }
 
   .next-week:focus {
@@ -835,7 +989,7 @@ table {
 
   .before-week {
     display: flex;
-    text-align: center;
+    text-align: left;
     justify-content: space-between;
     align-items: center;
     font-size: 16px;
@@ -843,6 +997,33 @@ table {
     background-color: var(--gray);
     border: none;
     width: 100%;
+    margin-top: 40px;
+    margin-bottom: 25px;
+  }
+
+  .before-week .arrow-right {
+    max-width: 65% !important;
+    width: 65% !important;
+    display: inline-block !important;
+    margin-bottom: 7px;
+  }
+
+  .before-week .week-text,
+  .next-week .week-text {
+    width: 40%;
+    color: var(--black);
+  }
+
+
+  .before-week .arrow-right img,
+  .next-week .arrow img {
+    width: 100%;
+  }
+
+  .next-week .arrow {
+    max-width: 73% !important;
+    width: 100% !important;
+    display: inline-block !important;
   }
 
   .before-week:focus {
@@ -888,10 +1069,19 @@ table {
     align-items: center;
   }
 
+  .header-data-col .date-data {
+    line-height: 9px;
+  }
+
   .header-border {
-    height: auto;
+    min-height: auto;
     border-bottom: none;
     display: block;
+    padding: 0;
+  }
+
+  .table-body .data-col {
+    width: 100%;
   }
 
   .data-col {
@@ -908,6 +1098,7 @@ table {
 
   .small-card {
     border-left: 1px solid var(--black);
+    border-right: none;
   }
 
   #hero .card {
@@ -930,19 +1121,23 @@ table {
     width: 100%;
     display: grid !important;
     text-align: end;
+    justify-content: unset;
   }
 
   .menu-items span {
     border-bottom: 1px solid var(--black);
     padding-left: 0;
     padding-right: 0;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    font-size: 12px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 16px;
+    line-height: 9px;
+
   }
 
   .small-card {
     min-width: 20px;
+    height: 53px;
   }
 
   .app-title {
@@ -955,11 +1150,20 @@ table {
     z-index: 2;
     background-color: var(--gray);
     border-bottom: 1px solid var(--black);
+    height: auto;
+  }
+
+  .app-title img {
+    width: 180px;
   }
 
   .header {
-    padding: 0px 20px;
+    padding: 0px 22px;
     position: unset;
+  }
+
+  #hero .header-data-col .p-3 {
+    padding: 0 !important;
   }
 
   #contact .contact-card {
@@ -982,6 +1186,10 @@ table {
 
   .mobile-header {
     display: flex !important;
+  }
+
+  .footer {
+    display: none;
   }
 
   .loader {
@@ -1018,6 +1226,11 @@ table {
 
   .top-date {
     border-left: none;
+    border-right: none;
+  }
+
+  .data-col-mobile {
+    display: none !important;
   }
 
   .small-header {
@@ -1027,18 +1240,25 @@ table {
   }
 
   .header {
-    padding: 0px 42px;
+    padding: 0px 22px;
     position: unset;
     margin-bottom: 0;
+  }
+
+  .header-data-col .date-data {
+    line-height: 9px;
   }
 
   .next-before {
     display: flex;
     justify-content: space-between;
+    margin-top: 20px !important;
+    margin-bottom: 20px !important;
   }
 
   .menu-items {
     width: 264px;
+    justify-content: unset;
   }
 
   .small-card:nth-child(1) {
@@ -1059,9 +1279,10 @@ table {
   }
 
   .header-border {
-    height: auto;
+    min-height: auto;
     border-bottom: none;
     display: block;
+    padding: 0;
   }
 
   .app-title {
@@ -1069,11 +1290,16 @@ table {
     padding-top: 10px;
     padding-bottom: 10px;
     position: fixed;
-    right: 40px;
-    left: 40px;
+    right: 22px;
+    left: 22px;
     z-index: 2;
     background-color: var(--gray);
     border-bottom: 1px solid var(--black);
+    height: auto;
+  }
+
+  .app-title img {
+    width: 200px;
   }
 
   .menu-items {
@@ -1081,6 +1307,7 @@ table {
     width: 100%;
     display: grid !important;
     text-align: end;
+    justify-content: unset;
   }
 
   .menu-items span {
@@ -1089,6 +1316,7 @@ table {
     padding-right: 0;
     padding-top: 14px;
     padding-bottom: 14px;
+    line-height: 9px;
   }
 
   .week {
@@ -1112,6 +1340,10 @@ table {
     width: 100%;
   }
 
+  .table-body .data-col {
+    width: 100%;
+  }
+
   .placeholder {
     height: 0px;
   }
@@ -1129,6 +1361,8 @@ table {
     font-weight: 500;
     background-color: var(--gray);
     border: none;
+    margin-bottom: 0;
+    margin-top: 0;
   }
 
   .next-week:focus {
@@ -1148,6 +1382,8 @@ table {
     font-weight: 500;
     background-color: var(--gray);
     border: none;
+    margin-bottom: 0;
+    margin-top: 0;
   }
 
   .before-week:focus {
@@ -1155,6 +1391,10 @@ table {
   }
 
   .data-col {
+    border-left: none;
+  }
+
+  .table-body .data-col {
     border-left: none;
   }
 
@@ -1167,20 +1407,34 @@ table {
     padding-right: 0 !important;
     padding-left: 0 !important;
   }
+
+  #hero .header-data-col .p-3 {
+    padding: 0 !important;
+  }
 }
 
 @media only screen and (min-device-width: 1024px) and (max-device-width: 1224px) {
+  .footer {
+    display: none;
+  }
+
   .header-border {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
     border-bottom: 2px solid var(--black);
-    height: 56px;
+    min-height: 56px;
+    padding: 0;
   }
 
   .top-date {
     border-left: 1px solid var(--black);
+    border-right: 1px solid var(--black);
+  }
+
+  .data-col-mobile {
+    display: none;
   }
 
   .header {
@@ -1231,6 +1485,7 @@ table {
     width: 652px;
     gap: 8px;
     margin-top: 0px;
+    justify-content: unset;
   }
 
   .menu-items span {
@@ -1240,6 +1495,7 @@ table {
     color: var(--primary);
     font-weight: 600;
     border-bottom: none;
+    line-height: 9px;
   }
 
   .custome-container {
@@ -1247,6 +1503,10 @@ table {
   }
 
   .data-col {
+    width: 14.28%;
+  }
+
+  .table-body .data-col {
     width: 14.28%;
   }
 

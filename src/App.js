@@ -13,7 +13,6 @@ export default function App() {
   return (<>
     <Router>
       <Routing />
-      <div className="placeholder"></div>
     </Router>
   </>
   );
